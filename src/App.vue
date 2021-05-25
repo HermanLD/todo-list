@@ -4,7 +4,7 @@
       <h1 class="header-logo">#todo</h1>
 
       <!-- PLACE TAB COMPONENT HERE -->
-      <tab-component />
+      <tab-component @updateTab="updateActiveTab(newState)" />
     </header>
     <section>
       <!-- PLACE INPUT COMPONENT HERE - only when COMPLETED tab NOT active -->
@@ -41,7 +41,15 @@ export default {
       activeTab: "all", // all, active, completed
     };
   },
-  methods: {},
+  methods: {
+    // Add todo
+    // Delete todo
+    // Update Todo 'isChecked' state
+    // Update activeTab
+    updateActiveTab(newState) {
+      this.activeTab = newState;
+    },
+  },
 };
 </script>
 
