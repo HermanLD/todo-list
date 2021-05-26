@@ -1,17 +1,23 @@
 <template>
   <ul class="wrapper">
-    <li v-for="todo in todoList" :key="todo.id">
-      <label><input type="checkbox" :value="todo.id" />{{ todo.value }}</label>
+    <li v-for="todo in renderedList" :key="todo.id">
+      <label
+        ><input
+          type="checkbox"
+          @click="$emit('todo-state-tunnel', $event.target.value)"
+          :value="todo.id"
+          :checked="todo.isChecked"
+        />{{ todo.value }}</label
+      >
     </li>
   </ul>
 </template>
 
 <script>
 export default {
-  emits: ["update-list"],
+  emits: ["todo-state-tunnel"],
   props: {
-    todoList: Array,
+    renderedList: Array,
   },
-  methods: {},
 };
 </script>

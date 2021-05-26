@@ -1,7 +1,7 @@
 <template>
   <label class="app-input">
     <span class="label">{{ label }}</span>
-    <input type="text" :placeholder="label" v-model="newTodo" />
+    <input type="text" :placeholder="label" v-model="todo" />
 
     <button @click="submitTodo">Add</button>
   </label>
@@ -22,13 +22,15 @@ export default {
   },
   methods: {
     submitTodo() {
-      if (this.newTodo === null) {
+      if (this.todo === null) {
         alert("Input Empty");
         return;
       }
       // uuidv4() will generate '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
       const newTodo = { id: uuidv4(), value: this.todo, isChecked: false };
       this.$emit("on-click", newTodo);
+
+      this.todo = null;
     },
   },
 };

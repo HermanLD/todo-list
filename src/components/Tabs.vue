@@ -1,18 +1,34 @@
 <template>
   <ul>
     <li>
-      <label><input type="radio" checked="true" value="all" />All</label>
-    </li>
-    <li>
-      <label><input type="radio" checked="false" value="active" />Active</label>
+      <label
+        ><input
+          type="radio"
+          name="tabs"
+          value="all-todos"
+          checked
+          @click="updateTab"
+        /><span>All</span></label
+      >
     </li>
     <li>
       <label
         ><input
           type="radio"
-          checked="false"
-          value="completed"
-        />Completed</label
+          name="tabs"
+          value="active-todos"
+          @click="updateTab"
+        /><span>Active</span></label
+      >
+    </li>
+    <li>
+      <label
+        ><input
+          type="radio"
+          name="tabs"
+          value="completed-todos"
+          @click="updateTab"
+        /><span>Completed</span></label
       >
     </li>
   </ul>
@@ -20,11 +36,18 @@
 
 <script>
 export default {
-  emits: ["update-active-tab"],
+  emits: ["tab-selection"],
   methods: {
     updateTab(event) {
-      this.$emit("update-active-tab", event.target.value);
+      console.log(event.target.value);
+      this.$emit("tab-selection", event.target.value);
     },
   },
 };
 </script>
+
+<style scoped>
+[type="radio"]:checked + span {
+  color: red;
+}
+</style>
