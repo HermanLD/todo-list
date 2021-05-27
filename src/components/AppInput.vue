@@ -42,6 +42,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1.8rem;
   font-size: 1.4rem;
   font-weight: 400;
 }
@@ -74,6 +75,7 @@ export default {
   font-weight: 600;
   color: #ffffff;
   background-color: #2F80ED;
+  cursor: pointer;
 }
 
 .app-input > button:hover {

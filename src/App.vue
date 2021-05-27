@@ -1,12 +1,12 @@
 <template>
-  <div class="wrapper">
-    <header>
+  <div>
+    <header class="main-header">
       <h1 class="header-logo">#todo</h1>
 
       <!-- PLACE TAB COMPONENT HERE -->
       <tab-component @tabSelection="updateActiveTab" />
     </header>
-    <section>
+    <section class="main-section">
       <!-- PLACE INPUT COMPONENT HERE - only when COMPLETED tab NOT active -->
       <app-input
         label="add details"
@@ -15,19 +15,25 @@
       />
 
       <!-- PLACE TODO ITEM LIST COMPONENT HERE -->
-
-      {{ activeTab }}
       <component
         :is="activeTab"
         :todoList="renderedTodos"
+        :isCompleted="isCompletedTab"
         @updateTodo="changeTodoState"
+        @deleteTodo="deleteSingleTodo"
       />
 
       <!-- DELETE COMPLETED ITEMS BUTTON - only shown when COMPLETED Tab active -->
-      <button class="app-delete-button" v-if="isCompletedTab">
+      <button
+        class="app-delete-button"
+        v-if="isCompletedTab"
+        @click="deleteAllTodo"
+      >
+        <svg class="delete-all-icon"><use xlink:href="#delete-trash" /></svg>
         delete all
       </button>
     </section>
+    <i data-fa-symbol="delete-trash" class="fas fa-trash"></i>
   </div>
 </template>
 
@@ -58,10 +64,21 @@ export default {
       this.todos.push(newTodo);
     },
     // Delete todo
+    deleteSingleTodo(todoID) {
+      this.todos.forEach((el, index) => {
+        if (el.id === todoID) {
+          this.todos.splice(index, 1);
+          return;
+        }
+      });
+    },
+    deleteAllTodo() {
+      const newArr = this.todos.filter((todo) => todo.isChecked === false);
+
+      this.todos = newArr;
+    },
     // Update Todo 'isChecked' state
     changeTodoState(todoID) {
-      console.log(todoID);
-
       this.todos.forEach((el) => {
         if (el.id === todoID) {
           el.isChecked = !el.isChecked;
@@ -96,14 +113,45 @@ export default {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 6rem;
+  margin: 6rem auto;
   max-width: 60.8rem;
+}
+
+.delete-all-icon {
+  --delete-all-sizing: 1rem;
+  width: var(--delete-all-sizing);
+  height: var(--delete-all-sizing);
+}
+
+.main-header {
+  text-align: center;
+}
+
+.main-section {
+  display: flex;
+  flex-direction: column;
 }
 
 .header-logo {
   font-family: "Raleway", sans-serif;
   font-size: 3.6rem;
+  font-weight: 700;
+  margin-bottom: 4rem;
+}
+
+.app-delete-button {
+  cursor: pointer;
+  align-self: flex-end;
+  padding: 1.2rem 2.6rem;
+  border-radius: 4px;
+  color: white;
+  background-color: #EB5757;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.app-delete-button:hover {
+  background-color: #cf4a4a;
 }
 </style>
