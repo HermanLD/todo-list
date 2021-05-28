@@ -37,7 +37,7 @@
 
 ## Overview
 
-![screenshot](https://res.cloudinary.com/nimbus8/image/upload/v1620757471/portfolio/input-cmp-image_ufthxx.png)
+![screenshot](https://res.cloudinary.com/nimbus8/image/upload/v1622236474/portfolio/todo-list-one-puce_cggb0l.jpg)
 
 - Learning to control state of the application w/o custom events
 - Practiced simple CRUD workflows
