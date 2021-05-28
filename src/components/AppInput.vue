@@ -1,7 +1,12 @@
 <template>
   <label class="app-input">
     <span class="label">{{ label }}</span>
-    <input type="text" :placeholder="label" v-model="todo" />
+    <input
+      type="text"
+      :placeholder="label"
+      v-model="todo"
+      @keydown.enter="submitTodo"
+    />
 
     <button @click="submitTodo">Add</button>
   </label>
@@ -67,6 +72,10 @@ export default {
   box-shadow: inset 0px 0px 0px 1px #bdbdbd;
 }
 
+.app-input > input:focus {
+  box-shadow: inset 0px 0px 0px 2px #2F80ED;
+}
+
 .app-input > button {
   margin-left: 2.5rem;
   padding-right: 4rem;
@@ -78,6 +87,7 @@ export default {
   cursor: pointer;
 }
 
+.app-input > button:focus,
 .app-input > button:hover {
   background-color: #266ac4;
 }

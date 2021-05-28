@@ -6,18 +6,22 @@
           class="sr-only"
           type="checkbox"
           @click="$emit('todo-state-tunnel', $event.target.value)"
+          @keydown.enter="$emit('todo-state-tunnel', $event.target.value)"
           :value="todo.id"
           :checked="todo.isChecked"
         />
         <span class="checkbox">
           <svg class="check-icon"><use xlink:href="#check-icon" /></svg>
         </span>
-        {{ todo.value }}</label
-      >
+        <span class="todo-value">
+          {{ todo.value }}
+        </span>
+      </label>
       <button
         class="todo-delete"
         v-if="tabState"
         @click="$emit('delete-todo-tunnel', todo.id)"
+        @keydown.enter="$emit('delete-todo-tunnel', todo.id)"
       >
         <svg class="delete-icon"><use xlink:href="#delete-trash" /></svg>
       </button>
@@ -54,6 +58,7 @@ export default {
 
 .todo-item > label {
   display: flex;
+  flex: 1 0;
   cursor: pointer;
 }
 
@@ -71,9 +76,17 @@ export default {
   box-shadow: inset 0px 0px 0px 1px #bdbdbd;
 }
 
+[type="checkbox"]:focus + .checkbox {
+  box-shadow: inset 0px 0px 0px 2px #2F80ED;
+}
+
 [type="checkbox"]:checked + .checkbox {
   box-shadow: inset 0px 0px 0px 1px #2F80ED;
   background-color: #2F80ED;
+}
+
+[type="checkbox"]:checked ~ .todo-value {
+  text-decoration: line-through;
 }
 
 .todo-delete {
